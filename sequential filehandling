@@ -1,0 +1,66 @@
+#include <iostream>
+#include <fstream>
+#include<string>
+using namespace std;
+
+
+int main()
+{
+    int ch, in, r_no;
+    string name;
+    fstream database;
+    database.open("database",ios::out);  //open file to write
+    if (!database)
+    {
+        cout<<"File not created"<<endl;
+    }
+    else
+    {
+        
+        cout<<"File created successfully!"<<endl;  //menu based operation on file
+        cout<<"Enter operation:"<<endl;
+        cout<<"1. Write in File."<<endl;
+        cout<<"2. Close file."<<endl;
+        cin>>ch;
+        
+       
+        switch(ch)
+        {
+            case 1:  //to write in file
+            
+            cout<<"Enter number of entries: ";  //can write for user defined numberof times
+            cin>>in;
+            for(int i=0; i<in; i++)
+            {
+                cout<<"\nEnter student name: "; //enter what you want to store in file
+                cin>>name;
+                cout<<"Enter student roll number:";
+                cin>>r_no;
+                database<<r_no<<"   |   "<<name<<"\n";
+            }
+            database.close();
+            
+            case 2:   //if user does not wish to write then they can close
+            database.close();
+            
+        }
+        
+    }
+    database.open("database", ios::in);
+        if(!database)
+        {
+            cout<<"File 'database' does not exist!"<<endl;
+            
+        }
+        else
+        {
+            cout<<"\n\nCONTENTS OF FILE"<<endl;
+            string ch;
+            while(getline(database, ch))
+            {
+                cout<<ch<<endl;
+            }   
+        }
+        database.close();
+    return 0;
+}
